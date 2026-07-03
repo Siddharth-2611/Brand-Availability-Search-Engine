@@ -5,11 +5,6 @@ across 27 platforms and 6 domain TLDs **concurrently**, with Google-style
 autocomplete, typo correction, and hybrid lexical + semantic ranking — all
 backed by hand-implemented data structures, not off-the-shelf libraries.
 
-Built as a systems-design portfolio piece: every core algorithm (Trie, BK-Tree,
-BM25 inverted index, trending heap) is written from scratch and unit-tested,
-sitting inside a real microservices architecture (FastAPI, Postgres, Redis,
-Elasticsearch, RabbitMQ, Celery) that runs entirely with Docker Compose —
-no cloud account, no API keys, no paid services required.
 
 ---
 
@@ -159,23 +154,7 @@ brand-search/
 | Schema design | `postgres/init.sql` |
 | Observability | Prometheus + Grafana |
 
-## 🛠️ Troubleshooting
 
-**Same platforms every time / autocomplete does nothing**
-The API is unreachable — a red banner appears in the UI when this happens
-instead of silently faking results. Check the browser console, confirm
-`http://localhost:8000/docs` loads directly, and check `docker compose logs api`.
-
-**API container crashes on startup / connection errors to redis or elasticsearch**
-Usually a Docker networking or startup-ordering issue. Try:
-```bash
-docker compose down -v --remove-orphans
-docker compose up --build -d
-```
-
-**Port already allocated**
-Something else on your machine is already using that port. Check
-`docker ps -a` for orphaned containers, or remap the port in `docker-compose.yml`.
 
 ## 📄 License
 
